@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {
     fetchSubmissions,
     fetchCommentsFromSubmission
-} from '../../actions/index'
+} from '../../actions'
 import SubmissionItem from './SubmissionItem'
 
 
