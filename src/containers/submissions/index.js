@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import {
     fetchSubmissions,
     fetchCommentsFromSubmission
-} from '../../modules/actions'
-import SubmissionItem from './submissionItem'
+} from '../../actions/index'
+import SubmissionItem from './SubmissionItem'
 
 
-const submissionsList = (props) => (
+const SubmissionsList = (props) => (
   <div>
     <h1>Home</h1>
     <p>Count:</p>
@@ -19,15 +19,14 @@ const submissionsList = (props) => (
         <button disabled={props.isPending} onClick={props.fetchCommentsFromSubmission}>Increment</button>
     </p>
       <SubmissionItem data={props.commentsList} />
-
     <p><button onClick={() => props.changePage()}>Go to about page via redux</button></p>
   </div>
 )
 
 const mapStateToProps = state => ({
-    commentsList: state.actions.commentsList,
-    submissions: state.actions.submissions,
-    isPending: state.actions.isPending
+    commentsList: state.store.commentsList,
+    submissions: state.store.submissions,
+    isPending: state.store.isPending
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -39,4 +38,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(submissionsList)
+)(SubmissionsList)

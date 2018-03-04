@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-import submissionsList from '../submissions'
-import About from '../about'
+import submissionsList from '../../containers/submissions/index'
+import About from '../about/index'
 
 const App = () => (
   <div>

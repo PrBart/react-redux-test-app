@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import actions from './actions'
+import storeReducer from './reducers/storeReducer'
 
 export default combineReducers({
     router: routerReducer,
-    actions
+	store: storeReducer
 })
