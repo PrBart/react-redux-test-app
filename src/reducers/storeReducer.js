@@ -1,9 +1,10 @@
-import { REQUEST_SENT, FETCH_COMMENTS_SUCCESS, FETCH_SUBMISSIONS_SUCCESS } from '../constants';
+import { REQUEST_SENT, FETCH_COMMENTS_SUCCESS, FETCH_SUBMISSIONS_SUCCESS, ADD_SUBREDDIT_SUCCESS, INPUT_SUBREDDIT_WRONG_NAME } from '../constants';
 
 
 const initialState = {
-	submissions: {},
+	submissions: [],
 	commentsList: [],
+    addedSubreddits: [],
 	isPending: false
 }
 
@@ -26,6 +27,16 @@ export default (state = initialState, action) => {
 				commentsList: action.commentsList,
 				isPending: !state.isPending
 			}
+		case ADD_SUBREDDIT_SUCCESS:
+			return{
+				...state,
+                addedSubreddits : [...state.addedSubreddits, action.subreddit],
+                isPending: !state.isPending
+			}
+        case INPUT_SUBREDDIT_WRONG_NAME:
+            return{
+            	state
+            }
 		default:
 			return state
 	}

@@ -1,17 +1,17 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-import submissionsList from '../../containers/submissions'
+import FrontPage from '../../containers/frontpage'
 import About from '../about'
 
 const App = () => (
   <div>
     <header>
-      <Link to="/">submissions List</Link>
+      <Link to="/">subreddit</Link>
       <Link to="/about-us">About</Link>
     </header>
 
     <main>
-      <Route exact path="/" component={submissionsList} />
+      <Route exact path="/" component={FrontPage} />
       <Route exact path="/about-us" component={About} />
     </main>
   </div>

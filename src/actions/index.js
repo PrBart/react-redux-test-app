@@ -1,5 +1,5 @@
 import r from "../API_wrapper";
-import { FETCH_SUBMISSIONS_SUCCESS, FETCH_COMMENTS_SUCCESS, REQUEST_SENT } from '../constants/index';
+import {FETCH_SUBMISSIONS_SUCCESS, FETCH_COMMENTS_SUCCESS, REQUEST_SENT, ADD_SUBREDDIT_SUCCESS, INPUT_SUBREDDIT_NAME, INPUT_SUBREDDIT_WRONG_NAME } from '../constants/index';
 
 export const fetchSubmissionSuccess = (submissions) => {
     submissions = submissionsParser(submissions);
@@ -10,7 +10,6 @@ export const fetchSubmissionSuccess = (submissions) => {
 };
 
 export const fetchCommentsFromSubmissionSuccess = (commentsList) => {
-    console.log(commentsList)
     commentsList = commentsList.comments.map(a => a);
     return {
         type: FETCH_COMMENTS_SUCCESS,
@@ -49,6 +48,7 @@ export const fetchCommentsFromSubmission = () => {
 };
 
 const submissionsParser = (submissions) => {
+    console.log(submissions);
     return submissions.map(rawSubmission => {
         let submission = {};
         submission.domain = rawSubmission.domain;
@@ -58,6 +58,40 @@ const submissionsParser = (submissions) => {
         submission.permalink = rawSubmission.permalink;
         submission.selftext = rawSubmission.selftext;
         submission.title = rawSubmission.title;
+        submission.preview = rawSubmission.preview;
+        submission.post_hint = rawSubmission.post_hint;
+        submission.media = rawSubmission.media;
+
         return submission;
     });
+};
+
+export const addSubreddit = (subredditInputedName) => {
+    console.log(subredditInputedName.target.getElementsByTagName('input')[0].value);
+    subredditInputedName = subredditInputedName.target.getElementsByTagName('input')[0].value;
+    return (dispatch) => {
+        dispatch(checkSubreddit(subredditInputedName))
+    };
+}
+
+export const checkSubreddit = (link) => {
+    return (dispatch) => {
+        dispatch({
+            type: REQUEST_SENT
+        });
+        return r.getHot(link,{limit: 0})
+            .then(response => {
+                dispatch(addSubredditSuccees(link))
+            })
+            .catch(error => {
+                throw(error);
+            });
+    };
+};
+
+export const addSubredditSuccees = (subreddit) => {
+    return {
+        type: ADD_SUBREDDIT_SUCCESS,
+        subreddit
+    }
 };

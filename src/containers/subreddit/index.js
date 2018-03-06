@@ -2,23 +2,25 @@ import React from 'react'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import pt from "prop-types"
+
 import {
     fetchSubmissions,
     fetchCommentsFromSubmission
 } from '../../actions'
+
 import SubmissionItem from './SubmissionItem'
 
 
 const SubmissionsList = (props) => (
   <div>
-    <h1>Home</h1>
-    <p>Count:</p>
+    <h1></h1>
 
     <p>
-        <button disabled={props.isPending} onClick={props.fetchSubmissions}>Increment</button>
-        <button disabled={props.isPending} onClick={props.fetchCommentsFromSubmission}>Increment</button>
+        <button disabled={props.isPending} onClick={props.fetchSubmissions}>PULL HOTPOSTS</button>
+        <button disabled={props.isPending} onClick={props.fetchCommentsFromSubmission}>PULL USELESS COMMENTS</button>
     </p>
-      <SubmissionItem data={props.commentsList} />
+      <SubmissionItem data={props.submissions} />
     <p><button onClick={() => props.changePage()}>Go to about page via redux</button></p>
   </div>
 )
@@ -39,3 +41,15 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SubmissionsList)
+
+SubmissionsList.propTypes = {
+    isPending: pt.bool,
+    submissions: pt.array,
+    commentsList: pt.array
+}
+
+SubmissionsList.defaultProps = {
+    isPending: false,
+    submissions: [],
+    commentsList: []
+};
