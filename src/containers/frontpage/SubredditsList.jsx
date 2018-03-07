@@ -7,15 +7,15 @@ import {connect} from "react-redux";
 
 const SubredditsList = (props) =>(
     <div>
-    <form action="#" onSubmit={event => props.addSubreddit(event)}>
+    <form action="#" onSubmit={event => props.addSubreddit(event, props.addedSubreddits)}>
         <input
             type="text"
             placeholder="enter subreddit name"
         />
     </form>
-        {props.addedSubreddits.map(subreddit =>
-            <div key={subreddit}>
-                <p>{subreddit}</p>
+        {props.addedSubreddits && props.addedSubreddits.map(subreddit =>
+            <div key={subreddit.subredditName}>
+                <p>{subreddit.subredditName}</p>
             </div>
             )
         }
@@ -23,7 +23,7 @@ const SubredditsList = (props) =>(
 )
 
 const mapStateToProps = state => ({
-    addedSubreddits: state.store.addedSubreddits
+    addedSubreddits: state.store.addedSubreddits,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -34,3 +34,11 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(SubredditsList)
+/*
+{props.addedSubreddits.map(subreddit =>
+    <div key={subreddit.index}>
+        <p>{subreddit.subredditName}</p>
+    </div>
+)
+}
+*/

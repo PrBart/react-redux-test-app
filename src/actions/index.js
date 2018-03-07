@@ -1,5 +1,5 @@
 import r from "../API_wrapper";
-import {FETCH_SUBMISSIONS_SUCCESS, FETCH_COMMENTS_SUCCESS, REQUEST_SENT, ADD_SUBREDDIT_SUCCESS, INPUT_SUBREDDIT_NAME, INPUT_SUBREDDIT_WRONG_NAME } from '../constants/index';
+import {FETCH_SUBMISSIONS_SUCCESS, FETCH_COMMENTS_SUCCESS, REQUEST_SENT, ADD_SUBREDDIT_SUCCESS, INPUT_SUBREDDIT_NAME, WRONG_SUBREDDIT_DUPLICATE_FOUND } from '../constants/index';
 
 export const fetchSubmissionSuccess = (submissions) => {
     submissions = submissionsParser(submissions);
@@ -66,22 +66,34 @@ const submissionsParser = (submissions) => {
     });
 };
 
-export const addSubreddit = (subredditInputedName) => {
-    console.log(subredditInputedName.target.getElementsByTagName('input')[0].value);
+export const addSubreddit = (subredditInputedName, addedSubreddits) => {
+
     subredditInputedName = subredditInputedName.target.getElementsByTagName('input')[0].value;
-    return (dispatch) => {
-        dispatch(checkSubreddit(subredditInputedName))
-    };
+
+    if(!addedSubreddits.find( subreddit =>   {return subreddit.subredditName === subredditInputedName}))
+    {
+        let subredditInputedObj = {
+            subredditName: subredditInputedName
+        };
+
+        return (dispatch) => {
+            dispatch(checkSubredditExistence(subredditInputedObj))
+        };
+    }else {
+        return {
+            type: WRONG_SUBREDDIT_DUPLICATE_FOUND
+        }
+    }
 }
 
-export const checkSubreddit = (link) => {
+export const checkSubredditExistence = (subredditInputedObj) => {
     return (dispatch) => {
         dispatch({
             type: REQUEST_SENT
         });
-        return r.getHot(link,{limit: 0})
+        return r.getHot(subredditInputedObj.subredditName ,{limit: 0})
             .then(response => {
-                dispatch(addSubredditSuccees(link))
+                dispatch(addSubredditSuccees(subredditInputedObj))
             })
             .catch(error => {
                 throw(error);
