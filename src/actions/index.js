@@ -1,5 +1,5 @@
 import r from "../API_wrapper";
-import {FETCH_SUBMISSIONS_SUCCESS, FETCH_COMMENTS_SUCCESS, REQUEST_SENT, ADD_SUBREDDIT_SUCCESS, INPUT_SUBREDDIT_NAME, WRONG_SUBREDDIT_DUPLICATE_FOUND } from '../constants/index';
+import {FETCH_SUBMISSIONS_SUCCESS, FETCH_COMMENTS_SUCCESS, REQUEST_SENT, ADD_SUBREDDIT_SUCCESS, INPUT_SUBREDDIT_NAME, WRONG_SUBREDDIT_DUPLICATE_FOUND, SUBREDDIT_DOES_NOT_EXIST } from '../constants/index';
 
 export const fetchSubmissionSuccess = (submissions) => {
     submissions = submissionsParser(submissions);
@@ -27,7 +27,9 @@ export const fetchSubmissions = (subredditLink) => {
                  dispatch(fetchSubmissionSuccess(response))
             })
             .catch(error => {
-                throw(error);
+                dispatch({
+                    type: SUBREDDIT_DOES_NOT_EXIST
+                });
             });
     };
 };
@@ -107,7 +109,9 @@ export const checkSubredditExistence = (subredditInputedObj) => {
                 dispatch(addSubredditSuccees(subredditInputedObj))
             })
             .catch(error => {
-                throw(error);
+                    dispatch({
+                        type: SUBREDDIT_DOES_NOT_EXIST
+                    });
             });
     };
 };
