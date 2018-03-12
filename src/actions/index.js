@@ -17,12 +17,12 @@ export const fetchCommentsFromSubmissionSuccess = (commentsList) => {
     }
 };
 
-export const fetchSubmissions = () => {
+export const fetchSubmissions = (subredditLink) => {
     return (dispatch) => {
         dispatch({
             type: REQUEST_SENT
         });
-        return r.getHot('Rainbow6',{limit: 9})
+        return r.getHot(subredditLink,{limit: 9})
             .then(response => {
                  dispatch(fetchSubmissionSuccess(response))
             })
@@ -50,25 +50,36 @@ export const fetchCommentsFromSubmission = () => {
 const submissionsParser = (submissions) => {
     console.log(submissions);
     return submissions.map(rawSubmission => {
-        let submission = {};
-        submission.domain = rawSubmission.domain;
-        submission.author = rawSubmission.author.name;
-        submission.comments = {};
-        submission.id = rawSubmission.id;
-        submission.permalink = rawSubmission.permalink;
-        submission.selftext = rawSubmission.selftext;
-        submission.title = rawSubmission.title;
-        submission.preview = rawSubmission.preview;
-        submission.post_hint = rawSubmission.post_hint;
-        submission.media = rawSubmission.media;
-
+        let submission = {
+            domain:[''],
+            author:[''],
+            comments : {},
+            id : [''],
+            permalink : [''],
+            selftext : [''],
+            title : [''],
+            preview : {},
+            post_hint : [''],
+            media : {}
+    };
+        if (rawSubmission.domain) submission.domain = rawSubmission.domain;
+        if (rawSubmission.author) submission.author = rawSubmission.author.name;
+        if (rawSubmission.comments) submission.comments = {};
+        if (rawSubmission.id) submission.id = rawSubmission.id;
+        if (rawSubmission.permalink) submission.permalink = rawSubmission.permalink;
+        if (rawSubmission.selftext) submission.selftext = rawSubmission.selftext;
+        if (rawSubmission.title) submission.title = rawSubmission.title;
+        if (rawSubmission.preview) submission.preview = rawSubmission.preview;
+        if (rawSubmission.post_hint) submission.post_hint = rawSubmission.post_hint;
+        if (rawSubmission.media) submission.media = rawSubmission.media;
+        if (rawSubmission.url) submission.url = rawSubmission.url;
         return submission;
     });
 };
 
-export const addSubreddit = (subredditInputedName, addedSubreddits) => {
-
-    subredditInputedName = subredditInputedName.target.getElementsByTagName('input')[0].value;
+export const addSubreddit = (e, addedSubreddits) => {
+        e.preventDefault();
+        let subredditInputedName = e.target.getElementsByTagName('input')[0].value;
 
     if(!addedSubreddits.find( subreddit =>   {return subreddit.subredditName === subredditInputedName}))
     {

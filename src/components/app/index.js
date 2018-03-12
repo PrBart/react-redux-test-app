@@ -1,18 +1,23 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import {Switch, Route, Link } from 'react-router-dom'
 import FrontPage from '../../containers/frontpage'
+import SubmissionsList from '../../containers/subreddit'
 import About from '../about'
 
 const App = () => (
   <div>
     <header>
-      <Link to="/">subreddit</Link>
+      <Link to="/">FrontPage</Link>
       <Link to="/about-us">About</Link>
     </header>
+      <hr />
 
     <main>
-      <Route exact path="/" component={FrontPage} />
-      <Route exact path="/about-us" component={About} />
+        <Switch>
+            <Route exact path="/" component={FrontPage} />
+            <Route exact path='/subreddits/:subredditName' component={SubmissionsList} />
+            <Route exact path="/about-us" component={About} />
+        </Switch>
     </main>
   </div>
 )

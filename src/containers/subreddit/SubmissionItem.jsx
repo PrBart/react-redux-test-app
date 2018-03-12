@@ -11,6 +11,10 @@ const SubmissionItem = (props) => (
                     {submission.title}
                 </h1>
                 <SubmissionContent post_hint={submission.post_hint} content={submission.preview} media={submission.media} />
+                <div>
+                    {submission.selftext}
+                </div>
+                <hr/>
             </div>
         )}
     </div>

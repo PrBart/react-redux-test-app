@@ -1,6 +1,7 @@
 import React from 'react'
 import pt from 'prop-types'
 import {push} from "react-router-redux";
+import { Route, Link } from 'react-router-dom'
 import {addSubreddit} from "../../actions";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
@@ -15,10 +16,11 @@ const SubredditsList = (props) =>(
     </form>
         {props.addedSubreddits && props.addedSubreddits.map(subreddit =>
             <div key={subreddit.subredditName}>
-                <p>{subreddit.subredditName}</p>
+                <Link to={"/subreddits/" + subreddit.subredditName}><p>{subreddit.subredditName}</p></Link>
             </div>
             )
         }
+        <hr />
     </div>
 )
 
@@ -34,11 +36,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(SubredditsList)
-/*
-{props.addedSubreddits.map(subreddit =>
-    <div key={subreddit.index}>
-        <p>{subreddit.subredditName}</p>
-    </div>
-)
-}
-*/

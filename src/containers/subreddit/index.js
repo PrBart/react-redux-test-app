@@ -14,12 +14,12 @@ import SubmissionItem from './SubmissionItem'
 
 const SubmissionsList = (props) => (
   <div>
-    <h1></h1>
 
     <p>
-        <button disabled={props.isPending} onClick={props.fetchSubmissions}>PULL HOTPOSTS</button>
-        <button disabled={props.isPending} onClick={props.fetchCommentsFromSubmission}>PULL USELESS COMMENTS</button>
+        <button disabled={props.isPending} onClick={() => props.fetchSubmissions(props.match.params.subredditName)}>PULL HOTPOSTS</button>
+        <button disabled={props.isPending} onClick={() => props.fetchCommentsFromSubmission}>PULL USELESS COMMENTS</button>
     </p>
+      <p>{props.match.params.subredditName}</p>
       <SubmissionItem data={props.submissions} />
     <p><button onClick={() => props.changePage()}>Go to about page via redux</button></p>
   </div>
