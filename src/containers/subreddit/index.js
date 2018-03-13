@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -11,19 +11,20 @@ import {
 
 import SubmissionItem from './SubmissionItem'
 
+class SubmissionsList extends Component {
 
-const SubmissionsList = (props) => (
-  <div>
+    componentDidMount() {
+        this.props.fetchSubmissions(this.props.match.params.subredditName);
+    }
 
-    <p>
-        <button disabled={props.isPending} onClick={() => props.fetchSubmissions(props.match.params.subredditName)}>PULL HOTPOSTS</button>
-        <button disabled={props.isPending} onClick={() => props.fetchCommentsFromSubmission}>PULL USELESS COMMENTS</button>
-    </p>
-      <p>{props.match.params.subredditName}</p>
-      <SubmissionItem data={props.submissions} />
-    <p><button onClick={() => props.changePage()}>Go to about page via redux</button></p>
-  </div>
-)
+    render() {
+        return  <div>
+            <p>{this.props.match.params.subredditName}</p>
+            <SubmissionItem data={this.props.submissions} />
+            <p><button onClick={() => this.props.changePage()}>Go to about page</button></p>
+        </div>;
+    }
+}
 
 const mapStateToProps = state => ({
     commentsList: state.store.commentsList,
