@@ -64,27 +64,27 @@ const submissionsParser = (submissions) => {
             post_hint : [''],
             media : {}
     };
-        if (rawSubmission.domain) submission.domain = rawSubmission.domain;
-        if (rawSubmission.author) submission.author = rawSubmission.author.name;
-        if (rawSubmission.comments) submission.comments = {};
-        if (rawSubmission.id) submission.id = rawSubmission.id;
-        if (rawSubmission.permalink) submission.permalink = rawSubmission.permalink;
-        if (rawSubmission.selftext) submission.selftext = rawSubmission.selftext;
-        if (rawSubmission.title) submission.title = rawSubmission.title;
-        if (rawSubmission.preview) submission.preview = rawSubmission.preview;
-        if (rawSubmission.post_hint) submission.post_hint = rawSubmission.post_hint;
-        if (rawSubmission.media) submission.media = rawSubmission.media;
-        if (rawSubmission.url) submission.url = rawSubmission.url;
-        return submission;
+        return {
+            domain: rawSubmission.domain || [''],
+            author: rawSubmission.author.name || [''],
+            comments : {},
+            id : rawSubmission.id || [''],
+            permalink : rawSubmission.permalink || [''],
+            selftext : rawSubmission.selftext || [''],
+            title : rawSubmission.title || [''],
+            preview : rawSubmission.preview || [''],
+            post_hint : rawSubmission.post_hint || [''],
+            media : rawSubmission.media || [''],
+            url : rawSubmission.url || ['']
+        };
     });
 };
 
-export const addSubreddit = (e, addedSubreddits) => {
-        e.preventDefault();
-        let subredditInputedName = e.target.getElementsByTagName('input')[0].value;
+export const addSubreddit = (subredditInputedName, addedSubreddits) => {
 
-    if(!addedSubreddits.find( subreddit =>   {return subreddit.subredditName === subredditInputedName}))
-    {
+    if (!addedSubreddits.find(subreddit => {
+            return subreddit.subredditName === subredditInputedName
+        })) {
         let subredditInputedObj = {
             subredditName: subredditInputedName
         };
@@ -92,10 +92,13 @@ export const addSubreddit = (e, addedSubreddits) => {
         return (dispatch) => {
             dispatch(checkSubredditExistence(subredditInputedObj))
         };
-    }else {
-        return {
+    }
+
+    return (dispatch) => {
+        dispatch({
             type: WRONG_SUBREDDIT_DUPLICATE_FOUND
-        }
+        });
+
     }
 }
 
