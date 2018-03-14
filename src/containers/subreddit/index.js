@@ -19,10 +19,10 @@ class SubmissionsList extends Component {
 
     render() {
         return  <div>
-            <p>{this.props.match.params.subredditName}</p>
+            <h1>{this.props.match.params.subredditName}</h1>
             <SubmissionItem data={this.props.submissions} />
             <p><button onClick={() => this.props.changePage()}>Go to about page</button></p>
-        </div>;
+        </div>
     }
 }
 

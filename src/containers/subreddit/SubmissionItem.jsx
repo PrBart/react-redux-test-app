@@ -7,12 +7,12 @@ const SubmissionItem = (props) => (
     <div>
         {props.data && props.data.map(submission =>
             <div key={submission.id}>
-                <h1>
+                <h3>
                     {submission.title}
-                </h1>
-                <SubmissionContent post_hint={submission.post_hint} content={submission.preview} media={submission.media} />
+                </h3>
+                <SubmissionContent post_hint={submission.post_hint} content={submission.preview} media={submission.media} url={submission.url}/>
                 <div>
-                    {submission.selftext}
+                    <p>{submission.selftext}</p>
                 </div>
                 <hr/>
             </div>

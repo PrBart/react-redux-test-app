@@ -15,7 +15,7 @@ const SubmissionContent = (props) => (
                 case 'link' :
                     return <img src={props.content.images[0].source.url} />
                 default:
-                    return ''
+                    return <a href={props.url}>link</a>
             }
         })()}
     </div>
