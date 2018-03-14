@@ -47,3 +47,13 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(SubredditsList)
+
+SubredditsList.propTypes = {
+    addSubreddit: pt.func,
+    addedSubreddits: pt.array,
+}
+
+SubredditsList.defaultProps = {
+    addedSubreddits: [],
+
+};

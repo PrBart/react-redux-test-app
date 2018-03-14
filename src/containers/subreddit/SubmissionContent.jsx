@@ -22,12 +22,16 @@ const SubmissionContent = (props) => (
     );
 
 SubmissionContent.propTypes = {
-    content: pt.object,
-    domain : pt.string
+    content : pt.object,
+    domain : pt.string,
+    media : pt.object,
+    url : pt.string
 }
 
 SubmissionContent.defaultProps = {
-    content: [],
-    domain : ''
+    content: {},
+    domain : '',
+    media : {},
+    url : ''
 };
 export default SubmissionContent

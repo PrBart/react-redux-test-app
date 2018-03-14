@@ -62,7 +62,8 @@ const submissionsParser = (submissions) => {
             title : [''],
             preview : {},
             post_hint : [''],
-            media : {}
+            media : {},
+            url : ['']
     };
         return {
             domain: rawSubmission.domain || [''],
@@ -72,9 +73,9 @@ const submissionsParser = (submissions) => {
             permalink : rawSubmission.permalink || [''],
             selftext : rawSubmission.selftext || [''],
             title : rawSubmission.title || [''],
-            preview : rawSubmission.preview || [''],
+            preview : rawSubmission.preview || {},
             post_hint : rawSubmission.post_hint || [''],
-            media : rawSubmission.media || [''],
+            media : rawSubmission.media || {},
             url : rawSubmission.url || ['']
         };
     });
