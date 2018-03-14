@@ -1,7 +1,8 @@
 # Minimalistic reddit webclient
 
 Created with create-react-app.
-work still in progress
+
+work is still in progress
 
 # Get started
 
