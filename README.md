@@ -2,7 +2,7 @@
 
 Created with create-react-app.
 
-work is still in progress
+development suspended
 
 # Get started
 
